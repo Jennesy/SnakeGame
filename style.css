@@ -1,3 +1,8 @@
+:root {
+	--arrow-width: 50px;
+	--arrow-height: 50px;
+	--radius: 60px;
+}
 body {
 	margin: 0;
 	padding: 0;
@@ -5,6 +10,7 @@ body {
 	width: 100vw;
 	height: 100vh;
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 }
@@ -23,4 +29,101 @@ body {
 .food {
 	background-color: #ce4760;
 	border: 0.25vmin solid #d9fff5;
+}
+.buttons {
+	display: none;
+}
+@media screen and (hover: none) {
+	#game-board {
+		align-self: start;
+		transform: scale(0.95);
+	}
+	.buttons {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: calc(100vmax - 100vmin);
+		height: calc(100vmax - 100vmin);
+	}
+	.buttons ul {
+		position: relative;
+		list-style: none;
+	}
+	.button {
+		position: absolute;
+		width: var(--arrow-width);
+		height: var(--arrow-height);
+		text-align: center;
+	}
+	.button#ArrowUp {
+		top: calc(0px - var(--radius));
+		left: 0;
+		transform: rotate(0);
+	}
+	.button#ArrowRight {
+		top: 0;
+		left: var(--radius);
+		transform: rotate(90deg);
+	}
+	.button#ArrowDown {
+		top: var(--radius);
+		left: 0;
+		transform: rotate(180deg);
+	}
+	.button#ArrowLeft {
+		top: 0;
+		left: calc(0px - var(--radius));
+		transform: rotate(-90deg);
+	}
+	.arrow {
+		position: relative;
+		pointer-events: none;
+	}
+	.arrow::before {
+		position: absolute;
+		content: '';
+		border: calc(var(--arrow-width) / 2) solid transparent;
+		border-bottom: calc(var(--arrow-height) * 0.6) solid #5b9279;
+		/* border: 1px solid aliceblue; */
+		top: calc(0px - (var(--arrow-height) / 2));
+		left: 0;
+		transition: all 0.2s ease-out;
+	}
+	.arrow::after {
+		content: '';
+		width: calc(var(--arrow-width) / 2);
+		height: calc(var(--arrow-height) * 0.4);
+		background-color: #5b9279;
+		position: absolute;
+		top: calc(var(--arrow-height) * 0.6);
+		left: calc((var(--arrow-width) * 0.25));
+		transition: all 0.2s ease-out;
+	}
+	#ArrowUp .arrow::after {
+		box-shadow: -2px -2px 1px 0px rgb(0 0 0 / 25%) inset,
+			2px 0px 1px 0px rgb(255 255 255 / 25%) inset;
+	}
+	#ArrowRight .arrow::after {
+		box-shadow: -2px 0px 1px 0px rgb(0 0 0 / 25%) inset,
+			2px -2px 1px 0px rgb(255 255 255 / 25%) inset;
+	}
+	#ArrowDown .arrow::after {
+		box-shadow: 2px 0px 1px 0px rgb(0 0 0 / 25%) inset,
+			-2px -2px 1px 0px rgb(255 255 255 / 25%) inset;
+	}
+	#ArrowLeft .arrow::after {
+		box-shadow: 2px -2px 1px 0px rgb(0 0 0 / 25%) inset,
+			-2px 0px 1px 0px rgb(255 255 255 / 25%) inset;
+	}
+	.button:active .arrow::before {
+		border-bottom: calc(var(--arrow-height) * 0.6) solid #497561;
+	}
+	.button:active#ArrowUp .arrow::after,
+	.button:active#ArrowRight .arrow::after,
+	.button:active#ArrowDown .arrow::after,
+	.button:active#ArrowLeft .arrow::after {
+		background-color: #497561;
+		box-shadow: none;
+	}
 }
